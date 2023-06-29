@@ -5,20 +5,26 @@ const path = require('path');
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, '/dist'),
     filename: 'index_bundle.js',
   },
-  plugins: [new HtmlWebpackPlugin()],
-  plugins: [new MiniCssExtractPlugin()],
   module: {
     rules: [
       {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
+      { test: /\.(js)$/, use: 'babel-loader' },
     ],
   },
-  mode: 'development',
+  plugins: [
+    new HtmlWebpackPlugin({
+      //TODO не создается html в dist
+      template: './src/index.html',
+      filename: './dist/index.html',
+    }),
+  ],
+  plugins: [new MiniCssExtractPlugin()],
   devServer: {
     static: {
       directory: path.join(__dirname, './dist'),
