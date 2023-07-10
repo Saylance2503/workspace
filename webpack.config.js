@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, '/dist'),
+    path: path.resolve(__dirname, './dist'),
     filename: 'index_bundle.js',
   },
   module: {
@@ -15,13 +15,20 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       { test: /\.(js)$/, use: 'babel-loader' },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'html-loader',
+          },
+        ],
+      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      //TODO не создается html в dist
       template: './src/index.html',
-      filename: './dist/index.html',
+      filename: 'index.html',
     }),
   ],
   plugins: [new MiniCssExtractPlugin()],
