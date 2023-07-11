@@ -15,23 +15,15 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       { test: /\.(js)$/, use: 'babel-loader' },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-          },
-        ],
-      },
     ],
   },
   plugins: [
+    new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
     }),
   ],
-  plugins: [new MiniCssExtractPlugin()],
   devServer: {
     static: {
       directory: path.join(__dirname, './dist'),
